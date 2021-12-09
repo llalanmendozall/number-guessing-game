@@ -31,11 +31,40 @@ function checkGuess() {
     lastResult.textContent = "Incorrecto";
     lastResult.style.backgroundColor = "red";
     //puede funcionar asi xd o cambiar por else if...
-    userGuess < randomNumber 
+    userGuess < randomNumber
       ? (lowOrHi.textContent = "¡El número es muy bajo!")
       : (lowOrHi.textContent = "¡El número es muy grande!");
   }
   guessCount++;
-  guessField.value = '';
+  guessField.value = "";
   guessField.focus();
 }
+
+guessSubmit.addEventListener("click", checkGuess);
+
+function setGameOver() {
+  guessField.disable = true;
+  guessSubmit.disable = true;
+  resetButtom = document.createElement("buttom");
+  resetButtom.textContent = "Iniciar nuevo juego";
+  document.body.append(resetButtom);
+  resetButtom.addEventListener("click", resetGame);
+}
+function resetGame() {
+  guessCount = 1;
+  const resetParas = document.querySelectorAll(".resultParas");
+  for (let i = 0; i < resetParas.length; i++) {
+    resetParas[i].textContent = "";
+  }
+  resetButtom.parentNode.removeChild(resetButtom);
+
+  guessField.disable = false;
+  guessSubmit.disable = false;
+  guessField.value = ''
+  guessField.focus();
+
+  lastResult.style.backgroundColor = 'white';
+
+  randomNumber = Math.floor(Math.random()*100)+1
+}
+
